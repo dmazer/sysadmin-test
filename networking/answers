@@ -1,0 +1,62 @@
+Networking Architecture, Design and Maintainence
+================================================
+
+Please answer the following questions.
+
+Q1) What are the OSI layers and how do they relate day-to-day operations?
+-------------------------------------------------------------------------
+there are 7 laters in the OSI model:
+
+1 - Physical - Ccables, nic card, physical connections, 
+2 - Data Link - Handles the data transfer across the physical link between two hosts, detects and corrects transmission errors.  This layer includes the media access control (MAC) sublayer which handles the addressing of frames.
+3 - Network - Provides the connectivity between two hosts by routing packets.
+4 - Transport - Handles the transport of data across the network by breaking down large files into smaller segments and reasssembles the data into a stream for the receiving host.
+5 - Session - Establishes connections between two hosts, and synchronizes the communication between the two hosts.
+6 - Presentation - Ensures data integrity in the application layers of communicating hosts.
+7 - Application - Provides network services for the user's applications and establishes network availability.
+
+Q2) Cisco/Juniper/Equivalent: Pick one and explain how to configure a VLAN.
+---------------------------------------------------------------------------
+Equivalent: The last switch I worked on was a Dell blade MXL switch.
+
+enable
+conf t
+interface vlan 29
+untagged gi 0/4
+tagged gi 0/5
+exit
+
+Q3) What is the difference between an application switch and a layer-2/3 switch?
+--------------------------------------------------------------------------------
+On an application switch, the packet switching is done from a separate chip on the system board, whereas on the layer 2/3 switch, packet switching is done on from internal software. 
+
+Q4) How does virtualization interact with network design?
+---------------------------------------------------------
+Each VM requires an IP address, either static or dhcp. If dhcp, the router or another host can assign dhcp addresses, or the VM hypervisor can as well.  It gets more complex if separate broadcast domains are required, i.e., VLANs, which must be defined in the switches.   For routes to work properly, a route/gateway IP must defined in the router, switch, or VM hypervisor for the VLAN IP.
+
+Q5) TCP Handshake. What is it?
+------------------------------
+Syn, syn ack, ack.
+
+This is how a connection is made from one computer to another:
+Computer A sends a syn to Computer B, B sends a syn ack, A responds with an ack.
+
+Q6) What is the difference between a MAC address and an IP address?
+-------------------------------------------------------------------
+A mac address is the hard-coded address of the nic, in hexadecimal format.  The first part of it represents the OEM.  The last part is a unique number.  The IP address is a 4-octet number assigned either manually or dynamically (vi dhcp) to the nic card.  To route a packet, the switch finds the IP address by keeping an internal table of the mac addresses, or it broadcasts all nics for mac address to find the IP address.
+
+Q7) ARP Storm vs ARP Poisoning. Compare and Contrast.
+-----------------------------------------------------
+An arp storm is when every nic in a domain is trying to talk with every other nic.  This can be seen with tcpdump, and  causes high latency in the network.
+Arp poisoning is when an attacker spoofs or changes the mac address of a nic card to his own nic card so all packets are sent to his computer.
+
+
+Q8) Scenario Response:
+----------------------
+Your organization's network administrator contacts you, noting that a host using IP 192.168.100.106 is flooding the network.  You decide to take that host offline in the short term to prevent additional flooding.  Your network uses Cisco switches.  How would you identify which port to shut down?
+
+show ip arp 192.168.100.106 to get the mac address, then show mac address table <mac addr> to get port.
+to shutdown port,
+enable, conf t
+int port/num
+shut

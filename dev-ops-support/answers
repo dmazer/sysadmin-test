@@ -1,0 +1,22 @@
+DevOps Support
+==============
+
+This position will require a significant amount of collaboration with developers
+and testers. You will be expected to support the development process.
+Experience with ITIL or Continuous Delivery environments is preferred.
+
+Question
+========
+
+Please explain the extent of your experience in DevOps environments. Include
+information about specific software development methodologies you have
+supported and your specific role in these environments. 
+
+The devops environment is basically the interaction between the development team and the QA team, with the system admin as the go-between to implement the changes to QA or production machines.  
+
+Development cuts a release of their software for QA to test, and if QA determines there are changes required, it goes back to development, where they make further changes.  When QA is satisfied (all tests pass), the next step is to deploy into production with the system admin implementing the new release into the production environment.
+This is most likely done in a scheduled maintenance window late at night, with key people from development, QA, and system administrators present.
+
+Usually there is a backout plan which is thoroughly reviewed and approved, should something go wrong after deployment.  After production deployment, the QA team rigorously tests the new implemtation and "signs off" if the deployment is successful.
+
+For example, in a VoIP project, the QA team would make/receive numerous local and international calls through all of the providers, and check the quality of the call.  They would make sure the databases receive the correct updates before/during/after calls, and check if billing info was updated, and if reports are sent, etc.

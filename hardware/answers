@@ -1,0 +1,58 @@
+Hardware Requisition, Provisioning and Trouble-Shooting
+=======================================================
+
+Answer the following questions.
+
+Q1) What is the difference between a RAID adapter and an HBA?
+-------------------------------------------------------------
+The RAID adapter interfaces between the system board and the RAID disks, the host bus adapter (HBA)for non RAID storage, such as SAN.
+
+Q2) Switch, Hub, Router. Compare and Contrast.
+----------------------------------------------
+A hub operates at layer 1, a switch at layer 2 and a router at layer 3.
+
+Switches have replaced hubs mostly in IT environments.  Hubs inefficiently broadcast to all nics in a domain causing collisions, to find the destination mac/IP address.
+
+Switches are like intelligent hubs, switching packets to an IP address based on the nic's mac address.  Many switches can be accessed to a Cisco type of interface, where ports and interfaces can be individually configured for VLAN, etc.
+
+RoutersQ3) What matters when deciding between hardware and virtualized machines?
+-------------------------------------------------------------------------
+
+Virtual machines are based on the underlying hardware which supports them.  If the hardware is a Dell Poweredge, then that's the VM (do a more /proc/cpuinfo).
+
+What matters most is VM performance based on the memory, disk and processors the physical machine has, so that the VM can be configured for to perform nearly as fast as the physical machine.
+
+This config is done in the VM hypervisor.
+
+Q4) On a $6000 budget, spec out a stand-alone storage server.
+-------------------------------------------------------------
+The biggest expense would be the scsi disk drives for the largest space possible.
+
+2 NICS
+Memory
+Disk - 16 tb  (scsi)- $4000
+CPUs
+
+Q5) How would you provision the previous machine for production?
+----------------------------------------------------------------
+The access method can be iSCSI, nfs or samba mounts.  Monitoring must be set up to test these connections are always up; generate alarms/alerts if they are down
+
+Q6) Scenario 1:
+---------------
+Write through-put on your storage server is falling. How would you diagnose the issues?
+
+- First check if disk space is full on a file system. Run df/du -sh on file systems and narrow down to specific directories to look for large files or directories.
+- Run lsof to see if memory has an abnormal hold on a file.  Kill the pid.
+- Use vmstat/iostat to check CPU percentage, note %idle, %iowait.
+- Run top or ps to see if any runaway process has a high load. kill -9 if necessary.
+- Run free to see how much memory is being used.
+
+Q7) Scenario 2:
+---------------
+The storage volume is filling up. You have four calendar weeks and $3000. Requisition and provision new hardware. Downtime on the storage must be kept below 5 minutes. Don't let the storage volume hit the cap.
+
+A Nagios alert can be used to monitor the disk space used, and alert when it reaches the theshold, so that it never hits the cap.
+
+If there's no RAID, with careful planning a system can be shut down and a new hard disk added and the machine brought back up.  Even out of a longer maintenance window, a new file system can be built.  The 5-minute downtime should be during the most idle time of a system, e.g., 3am, etc.  (Would be even quicker if the machine is a VM).
+
+

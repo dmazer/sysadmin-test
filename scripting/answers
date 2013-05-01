@@ -1,0 +1,25 @@
+Scripting and Automation
+========================
+
+Q1) Bash-Fu, Python Prowess, Perl Perfection, Ruby Revelation...
+----------------------------------------------------------------
+Drop a script in this directory which does something amazing.
+
+pxe.sh - This script runs on a debian system, mounts a distribution ISO, and pxe boots a VM machine with a blank hard disk, and builds the distro automatically
+
+Q2) Explain
+-----------
+What are the interesting parts of your script? What do they do?
+
+The interesting part is starting the dhcp, tftp, apache services to listen so from the commandline the VM can pxe boot from this server and begin building an OS.
+
+I have many great ones!
+
+Q3) Automated Provisioning
+--------------------------
+Puppet, Chef, Salt, Fabric, vCenter. What are they? Tell me why I should care
+about them. Describe your experiences with some or all of them.
+
+The recent experiences I have are with Chef.  Chef is a configuration management tool which simplifies managing many hosts in a network.  Cookbook recipes (ruby scripts) can be written to install, update, or remove software, or update users or run scripts on one or more hosts. Roles are defined to run recipes on classes of machines, such as database servers, or application servers, which have different configurations.
+
+In complex, enterprise environments where there are hundreds or even thousands of servers, it is critical and necessary to use configuration management to ensure uniformity on all hosts.

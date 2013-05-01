@@ -1,0 +1,41 @@
+Disaster Recovery Design and Verification
+=========================================
+Answer the following questions immediately below each question.
+
+Q1) Disaster Recovery and Continuous Operations
+-----------------------------------------------
+What is the relationship between DR and COOP? What are the driving factors
+pertaining to this type of planning?
+
+DR is the process or procedure developed by a company or organization to provide/initiate computer/network system recovery continuity;
+COOP is the federal initiative for DR, with specific guidelines for compliance coupled with DR.
+
+Q2) Disaster Recovery Planning
+------------------------------
+How do DNS, layer-4 switches and layer-7 logic relate to DR situations? What
+is a transparent failure?
+
+With DNS, in a DR scenario where a failover moves to the backup data center, changes must also be made to DNS to redirect traffic.
+
+A transparent failure is a hardware or software failure in a data center which is resolved and the end users are unaware of such a failure.
+
+Q3) Disaster Recovery Practice
+------------------------------
+How does production deployment relate to DR? Describe the concerns with
+reverting a production deployment.
+
+The main concern is loss of service and connectivity for clients.  Reverting a production deployment involves a temporary stoppage of service with the least possible downtime, to restore the previous working deployment.  Hopefully, a fully tested procedure is in place with such a practice.
+
+Q4) DR Scenario
+---------------
+You have a production site with a partial service-capacity, replicated back-up
+site. The primary and back-up sites are connected with a direct fiber backplane
+for fail-over and consistency communication. Someone hits the fiber with a
+backhoe. Is this an issue? If it is, how would you design the total system to
+mitigate any problems?
+
+The best possible design for this situation is to have all systems replicated in another data center, with a heartbeat mechanism in place to initiate a failover.  A series of tests (scripted) would execute to ensure there is a true outage, before initiating the failover.  This can be done manually (with alerts in place) or automatically.
+
+All databases and system files would be replicated/sync'ed to the alternate data center, which is basically a duplicate environment.
+
+If a fiber link is cut, most likely the data is not compromised, but that fiber link may be the only network route to the data center.
